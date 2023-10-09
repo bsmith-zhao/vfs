@@ -4,9 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using util.rep;
 using FileInfo = Fsp.Interop.FileInfo;
 
-namespace util.rep.vfs
+namespace vfs
 {
     public class VfsItem : RepItem { }
 

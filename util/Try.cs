@@ -8,10 +8,17 @@ namespace util.ext
 {
     public static class Try
     {
-        public static Action<Exception> notify = showError;
+        public static Action<Exception> notify = showMessage;
 
-        static void showError(Exception err)
+        static void showMessage(Exception err)
             => err.Message.msg();
+
+        public static void handleError(Exception err,
+            Action<Exception> notify = null)
+        {
+            err.log();
+            (notify ?? Try.notify)?.Invoke(err);
+        }
 
         public static void trydo(this object obj, Action func,
             Action<Exception> notify = null)
@@ -19,8 +26,7 @@ namespace util.ext
             try { func(); }
             catch (Exception err)
             {
-                err.log();
-                (notify ?? Try.notify)?.Invoke(err);
+                handleError(err);
             }
         }
 
@@ -30,8 +36,7 @@ namespace util.ext
             try { return func(); }
             catch (Exception err)
             {
-                err.log();
-                (notify ?? Try.notify)?.Invoke(err);
+                handleError(err);
             }
             return default(T);
         }

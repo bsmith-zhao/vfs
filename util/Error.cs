@@ -9,25 +9,32 @@ namespace util
     public class Error : Exception
     {
         public Type type;
-        public string act;
+        public string item;
         public object[] args;
 
         public Error(object obj, string act, params object[] args)
         {
             this.type = obj.GetType();
-            this.act = act;
+            this.item = act;
             this.args = args;
         }
 
         public Error(Type type, string act, params object[] args)
         {
             this.type = type;
-            this.act = act;
+            this.item = act;
             this.args = args;
         }
 
         public override string Message 
-            => type.trans(act, args);
+            => type.trans(item, args);
+
+        public string Json
+            => new ErrorJson
+            {
+                code = $"{type.Name}.{item}",
+                args = args,
+            }.json();
     }
 
     public class Error<T> : Error
@@ -36,5 +43,14 @@ namespace util
             : base(typeof(T), act, args)
         {
         }
+    }
+
+    public class ErrorJson
+    {
+        public string code;
+        public object[] args;
+
+        public override string ToString()
+            => code.trans(args);
     }
 }

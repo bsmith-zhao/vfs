@@ -7,10 +7,12 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using util;
 using util.ext;
+using util.rep;
 using FileInfo = Fsp.Interop.FileInfo;
 
-namespace util.rep.vfs
+namespace vfs
 {
     public class VfsFileBase : FileSystemBase, IDisposable
     {

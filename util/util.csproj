@@ -64,6 +64,7 @@
     <Compile Include="crypt\PackCrypt.cs" />
     <Compile Include="crypt\sodium\Api.cs" />
     <Compile Include="ext\DrawEx.cs" />
+    <Compile Include="ext\ExceptionEx.cs" />
     <Compile Include="prop\DescAlias.cs" />
     <Compile Include="Try.cs" />
     <Compile Include="ext\IEnumerableEx.cs" />

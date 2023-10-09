@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using util.ext;
 using FileInfo = Fsp.Interop.FileInfo;
 
-namespace util.rep.vfs
+namespace vfs
 {
     public class VfsNode
     {

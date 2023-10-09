@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using util;
 using util.ext;
 
@@ -16,19 +12,20 @@ namespace vfs
             try
             {
                 if (args.Length == 0)
-                    throw new Error(typeof(VfsApp), "EmptyArgs");
+                    throw new Error<VfsDrive>("EmptyArgs");
 
-                var vfs = args[0].b64().utf8().obj<VfsApp>();
+                var vfs = args[0].b64().utf8()
+                    .obj<VfsArgs>().create();
                 vfs.mount();
             }
             catch (Error err)
             {
-                Console.Error.WriteLine(err.Message);
+                Console.Error.WriteLine(err.Json);
                 return;
             }
             catch (Exception err)
             {
-                Console.Error.WriteLine(err.Message);
+                Console.Error.WriteLine(err.conv<VfsDrive>("Error").Json);
                 return;
             }
 

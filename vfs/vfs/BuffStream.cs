@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using util.ext;
 
-namespace util.rep.vfs
+namespace vfs
 {
     public class BuffStream : IDisposable
     {
