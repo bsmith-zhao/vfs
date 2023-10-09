@@ -21,11 +21,12 @@ namespace util
 
         static IEnumerable<string> defaultCodes()
         {
-            yield return dir.tryget(File.ReadAllText(CurrentPath).Trim);
+            if (CurrentPath.fileExist())
+                yield return dir.tryget(() => CurrentPath.readText().Trim());
             var cu = CultureInfo.CurrentCulture;
-            yield return cu.Name;
             yield return cu.NativeName;
             yield return cu.EnglishName;
+            yield return cu.Name;
         }
 
         static string langPath(string code)
