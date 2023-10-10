@@ -1,2 +1,3 @@
-# vfs
-Virtual File System
+Virtual File System Derive
+
+This is sub module of SyncFavor, used to mount reposit to local file system
