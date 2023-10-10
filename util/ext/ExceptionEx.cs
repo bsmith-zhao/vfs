@@ -8,11 +8,11 @@ namespace util.ext
 {
     public static class ExceptionEx
     {
-        public static Error conv(this Exception err, 
+        public static Error toError(this Exception err, 
             Type type, string item)
             => new Error(type, item, err.Message);
 
-        public static Error conv<T>(this Exception err, string item)
+        public static Error toError<T>(this Exception err, string item)
             => new Error<T>(item, err.Message);
     }
 }

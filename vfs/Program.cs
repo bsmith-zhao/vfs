@@ -25,7 +25,7 @@ namespace vfs
             }
             catch (Exception err)
             {
-                Console.Error.WriteLine(err.conv<VfsDrive>("Error").Json);
+                Console.Error.WriteLine(err.toError<VfsDrive>("Error").Json);
                 return;
             }
 

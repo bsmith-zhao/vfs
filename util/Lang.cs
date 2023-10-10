@@ -22,7 +22,8 @@ namespace util
         static IEnumerable<string> defaultCodes()
         {
             if (CurrentPath.fileExist())
-                yield return dir.tryget(() => CurrentPath.readText().Trim());
+                yield return dir.tryget(() 
+                    => CurrentPath.readText().Trim());
             var cu = CultureInfo.CurrentCulture;
             yield return cu.NativeName;
             yield return cu.EnglishName;
