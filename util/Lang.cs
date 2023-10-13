@@ -33,11 +33,10 @@ namespace util
         static string langPath(string code)
             => $"{dir}/{code}.lang";
 
-        public static void init(string dir = null)
+        public static void init()
         {
             dir.trydo(() => 
             {
-                Lang.dir = dir ?? Lang.dir;
                 var code = defaultCodes().first(c => langPath(c).fileExist());
                 if (code != null)
                     loadLang(code);
@@ -88,22 +87,31 @@ namespace util
                 foreach (var fld in ui.GetType().GetFields())
                 {
                     var obj = fld.GetValue(ui);
-                    if (obj is ToolStripItem
-                        || obj is Button || obj is Label 
-                        || obj is CheckBox
-                        || obj is ColumnHeader)
-                        (obj as dynamic).Text = transUIFld(cls, fld.Name);
-                    else if (obj is UserControl)
-                        trans(obj as Control);
+                    if (obj is UserControl uc)
+                        trans(uc);
+                    else if (obj is ToolStripItem tb)
+                    {
+                        tb.Text = transUIFld(cls, fld.Name, out var key);
+                        tb.ToolTipText = values.TryGetValue($"{key}Tip", 
+                                        out var tip) ? tip : tb.Text;
+                    }
+                    else if (obj is Control ct)
+                        ct.Text = transUIFld(cls, fld.Name);
+                    else if (obj is ColumnHeader ch)
+                        ch.Text = transUIFld(cls, fld.Name);
                 }
                 if (ui is Form form)
                     form.Text = trans($"{cls}.Title");
             });
         }
 
-        public static string transUIFld(string cls, string name)
+        static string transUIFld(string cls, string name)
+            => transUIFld(cls, name, out var key);
+
+        public static string transUIFld(string cls, 
+            string name, out string key)
         {
-            var key = getKey(cls, ref name);
+            key = getKey(cls, ref name);
             if (values.TryGetValue(name, out var value))
                 return value;
             if (values.TryGetValue(key, out value))

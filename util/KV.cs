@@ -26,11 +26,14 @@ namespace util
                 idx = row.IndexOf("=");
                 if (idx >= 0)
                 {
-                    value = row.Substring(idx + 1).Trim()
-                        .Replace("\\n", "\r\n")
-                        .Replace("\\t", "\t");
-                    key = row.Substring(0, idx).Trim();
-                    map[key] = value;
+                    value = row.Substring(idx + 1).Trim();
+                    if (value.Length > 0)
+                    {
+                        value = value.Replace("\\n", "\r\n")
+                            .Replace("\\t", "\t");
+                        key = row.Substring(0, idx).Trim();
+                        map[key] = value;
+                    }
                 }
             }
             return map;
